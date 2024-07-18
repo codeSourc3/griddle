@@ -11,7 +11,10 @@ import { customElement} from 'lit/decorators.js'
 @customElement('gdl-data-grid')
 export class GriddleDataGrid extends LitElement {
   
-  
+  constructor() {
+    super();
+    this.role = "grid";
+  }
 
   render() {
     return html`
