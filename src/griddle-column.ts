@@ -17,7 +17,7 @@ export class GriddleColumn extends LitElement {
 
     static styles = css`
         :host {
-            display: table-column;
+            display: table-cell;
         }
     `;
 }
