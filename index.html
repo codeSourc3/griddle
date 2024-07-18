@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Lit + TS</title>
+    <title>Griddle</title>
     <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/my-element.ts"></script>
+    <script type="module" src="/src/index.ts"></script>
   </head>
   <body>
-    <my-element>
-      <h1>Vite + Lit</h1>
-    </my-element>
+    <gdl-data-grid>
+      <gdl-grid-column slot="headers">First Name</gdl-grid-column>
+      <gdl-grid-column slot="headers">Last Name</gdl-grid-column>
+      <gdl-grid-column slot="headers">Number of Wins</gdl-grid-column>
+      <gdl-grid-row>
+        <gdl-grid-cell>James</gdl-grid-cell>
+        <gdl-grid-cell>Byron</gdl-grid-cell>
+        <gdl-grid-cell>3</gdl-grid-cell>
+      </gdl-grid-row>
+    </gdl-data-grid>
   </body>
 </html>
