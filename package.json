@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "types": "my-element.d.ts",
+  "types": "griddle.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
