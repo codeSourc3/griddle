@@ -5,5 +5,12 @@ export default defineConfig({
     plugins: [
         // solves typescript paths
         tsconfigPaths(),
-    ]
+    ],
+    build: {
+        lib: {
+            fileName: 'index',
+            entry: 'src/index.ts',
+            formats: ['es']
+        }
+    }
 });

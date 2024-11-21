@@ -9,17 +9,26 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "web-test-runner",
-    "test:watch": "web-test-runner --watch"
+    "test:watch": "web-test-runner --watch",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "lit": "^3.1.4"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.2",
     "@open-wc/testing": "^4.0.0",
     "@remcovaes/web-test-runner-vite-plugin": "^1.2.1",
+    "@storybook/addon-essentials": "^8.4.5",
+    "@storybook/blocks": "^8.4.5",
+    "@storybook/test": "^8.4.5",
+    "@storybook/web-components": "^8.4.5",
+    "@storybook/web-components-vite": "^8.4.5",
     "@types/mocha": "^10.0.7",
     "@web/test-runner": "^0.18.2",
     "@web/test-runner-playwright": "^0.11.0",
+    "storybook": "^8.4.5",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
     "vite-tsconfig-paths": "^4.3.2"

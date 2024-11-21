@@ -23,5 +23,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "test/griddle-grid.test.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.stories.ts", "**/*.test.ts"]
 }
