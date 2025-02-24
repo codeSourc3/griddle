@@ -18,12 +18,12 @@ export class GriddleDataGrid extends LitElement {
 
   render() {
     return html`
-      <div role="rowgroup">
+      <div role="rowgroup" id="tablehead">
         <gdl-grid-row>
           <slot name="headers"></slot>
         </gdl-grid-row>
       </div>
-      <div role="rowgroup">
+      <div role="rowgroup" id="mainbody">
         <slot></slot>
       </div>
     `
@@ -34,6 +34,13 @@ export class GriddleDataGrid extends LitElement {
       display: table;
     }
 
-    
-  `
+    #mainbody {
+      display: table-row-group;
+      position: relative;
+    }
+
+    #tablehead {
+      display: table-header-group;
+    }
+  `;
 }
