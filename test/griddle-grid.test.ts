@@ -36,7 +36,7 @@ test('Tabs to grid at first', async () => {
         <gdl-grid-column slot="headers">Last Name</gdl-grid-column>
         <gdl-grid-column slot="headers">Is Manager</gdl-grid-column>
         <gdl-grid-row>
-            <gdl-grid-cell tabindex="0">John</gdl-grid-cell>
+            <gdl-grid-cell>John</gdl-grid-cell>
             <gdl-grid-cell>Doe</gdl-grid-cell>
             <gdl-grid-cell>False</gdl-grid-cell>
         </gdl-grid-row>
