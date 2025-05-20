@@ -14,6 +14,7 @@ export default defineWorkspace([
         instances: [
           {browser: 'chromium'}
         ],
+        headless: true,
       },
     },
   },
