@@ -13,7 +13,7 @@ import { GriddleCell } from './griddle-cell';
 @customElement('gdl-data-grid')
 export class GriddleDataGrid extends LitElement {
 
-  @queryAssignedElements()
+  @queryAssignedElements({selector: 'gdl-grid-row'})
   accessor rows!: Array<GriddleRow>
 
   constructor() {
