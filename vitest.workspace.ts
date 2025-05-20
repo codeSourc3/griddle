@@ -6,6 +6,7 @@ export default defineWorkspace([
   {
     extends: 'vite.config.ts',
     test: {
+      setupFiles: ['./setup-file.ts'],
       browser: {
         enabled: true,
         provider: 'playwright',

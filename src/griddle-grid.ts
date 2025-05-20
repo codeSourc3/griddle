@@ -1,5 +1,7 @@
-import { LitElement, css, html } from 'lit'
-import { customElement} from 'lit/decorators.js'
+import { LitElement, PropertyValues, css, html } from 'lit'
+import { customElement, queryAssignedElements} from 'lit/decorators.js'
+import { GriddleRow } from './griddle-row';
+import { GriddleCell } from './griddle-cell';
 
 
 /**
@@ -10,10 +12,14 @@ import { customElement} from 'lit/decorators.js'
  */
 @customElement('gdl-data-grid')
 export class GriddleDataGrid extends LitElement {
-  
+
+  @queryAssignedElements()
+  accessor rows!: Array<GriddleRow>
+
   constructor() {
     super();
     this.role = "grid";
+    this.tabIndex = 0;
   }
 
   render() {
@@ -27,6 +33,20 @@ export class GriddleDataGrid extends LitElement {
         <slot></slot>
       </div>
     `
+  }
+
+  protected firstUpdated(_changedProperties: PropertyValues): void {
+    this.resetTabbable();
+  }
+
+  private resetTabbable(): void {
+    if (this.rows.length > 0) {
+      const firstRow = this.rows[0];
+      if (firstRow.children.length > 0) {
+        let firstCell = firstRow.firstElementChild as GriddleCell;
+        firstCell.tabIndex = 0;
+      }
+    }
   }
 
   static styles = css`
