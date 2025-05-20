@@ -73,5 +73,52 @@ describe('Keyboard Navigation', () => {
         });
     });
 
-    
+    describe('Grid Navigation Mode', () => {
+        describe('Left Arrow Key', () => {
+            test.todo('Left arrow advances focus to the cell on the left', () => {
+                //
+            });
+
+            test.todo('Left Arrow does nothing if no cell precedes it', () => {
+                //
+            });
+        })
+
+        describe('Right Arrow Key', () => {
+            test.todo('Right Arrow advances focus to the cell on the right', () => {
+                //
+            });
+
+            test.todo('Right Arrow does nothing if no cell is after it', () => {
+                //
+            });
+        });
+
+        describe('Up Arrow Key', () => {
+            test.todo('Up Arrow advances focus to the cell above', () => {
+                //
+            });
+
+            test.todo('Up Arrow does nothing if no cell is above it', () => {
+                //
+            });
+        });
+
+        describe('Down Arrow Key', () => {
+            test.todo('Down Arrow advances focus to the cell below', () => {
+                //
+            });
+
+            test.todo('Down Arrow does nothing if no cell is below it', () => {
+                //
+            });
+        })
+    });
+
+    describe('Cell Interaction Mode', () => {
+        //
+        test.todo('Add advanced grid interactions', () => {
+            //
+        });
+    });
 })
