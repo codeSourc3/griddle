@@ -7,6 +7,7 @@ export class GriddleCell extends LitElement {
         super();
         //FIXME: Change to rowheader depending on if row's hasrowheader is true.
         this.role = 'gridcell';
+        this.tabIndex = -1;
     }
 
     render() {
