@@ -155,19 +155,71 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
                 await userEvent.tab();
 
                 await expect(leftCell).toHaveFocus();
+
+                await expect(middleCell).toHaveAttribute('tabindex', '-1');
+                await expect(leftCell).toHaveAttribute('tabindex', '0');
             })
         });
 
 
 
         describe('Right Arrow Key', () => {
-            test.todo('Right Arrow advances focus to the cell on the right', () => {
-                //
+            test('Right Arrow advances focus to the cell on the right', async () => {
+                const {screen} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                await userEvent.tab();
+                await expect(middleCell).toHaveFocus();
+                await userEvent.keyboard('{ArrowRight}');
+                const rightCell = screen.getByTestId('right-cell');
+                await expect(middleCell).not.toHaveFocus();
+                await expect(rightCell).toHaveFocus();
             });
 
-            test.todo('Right Arrow does nothing if no cell is after it', () => {
-                //
+            test('Right Arrow does nothing if no cell is after it', async () => {
+                const {screen} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                const nextCell = screen.getByTestId('right-cell');
+                middleCell.element().setAttribute('tabindex', '-1');
+                nextCell.element().setAttribute('tabindex', '0');
+                await userEvent.tab();
+
+                await userEvent.keyboard('{ArrowRight}');
+                await expect(nextCell).toHaveFocus();
+                await expect(nextCell).toHaveAttribute('tabindex', '0');
             });
+
+             test('Shift+Tab after using Right Arrow while focused on a cell does not cause a loss of the roving tabindex', async () => {
+                const {screen, gridLocator} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                await userEvent.tab();
+                await expect(middleCell).toHaveFocus();
+                await userEvent.keyboard('{ArrowRight}');
+                const rightCell = screen.getByTestId('right-cell');
+                await userEvent.tab({shift:true});
+                await expect(gridLocator).toHaveFocus();
+
+                await userEvent.tab();
+                await expect(rightCell).toHaveFocus();
+            })
+
+            test('Focusing out of grid after using Right Arrow will not cause loss of the roving tabindex', async () => {
+                const {screen, gridLocator} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                await userEvent.tab();
+                await userEvent.keyboard('{ArrowRight}');
+                const rightCell = screen.getByTestId('right-cell');
+                const outsideWidget = screen.getByTestId('1');
+                await outsideWidget.click();
+                await expect(outsideWidget).toHaveFocus();
+
+                await userEvent.tab();
+                await userEvent.tab();
+
+                await expect(rightCell).toHaveFocus();
+
+                await expect(middleCell).toHaveAttribute('tabindex', '-1');
+                await expect(rightCell).toHaveAttribute('tabindex', '0');
+            })
         });
 
         describe('Up Arrow Key', () => {

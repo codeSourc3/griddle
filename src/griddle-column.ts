@@ -7,6 +7,7 @@ export class GriddleColumn extends LitElement {
     constructor() {
         super();
         this.role = 'columnheader';
+        this.tabIndex = -1;
     }
 
     render() {

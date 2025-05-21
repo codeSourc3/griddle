@@ -11,6 +11,7 @@ export class GriddleRow extends LitElement {
     constructor() {
         super();
         this.role = 'row';
+        this.tabIndex = -1;
         this.onKeydownHandler = this.onKeydownHandler.bind(this);
         this.onFocusIn = this.onFocusIn.bind(this);
         this.onFocusOut = this.onFocusOut.bind(this);
@@ -61,10 +62,18 @@ export class GriddleRow extends LitElement {
         }
         if (evt.key === 'ArrowLeft') {
             if (gridCellEvtSource) {
-                let previousGridCell = (gridCellEvtSource as Element).previousElementSibling as HTMLElement | null;
+                let previousGridCell = gridCellEvtSource.previousElementSibling as HTMLElement | null;
                 if (previousGridCell) {
                     // There is a preceding element connected to the current gridcell
                     previousGridCell.focus();
+                }
+            }
+        } else if (evt.key === 'ArrowRight') {
+            if (gridCellEvtSource) {
+                let nextGridCell = gridCellEvtSource.nextElementSibling as HTMLElement | null;
+                if (nextGridCell) {
+                    // There is an element to the right of the current cell.
+                    nextGridCell.focus();
                 }
             }
         }
