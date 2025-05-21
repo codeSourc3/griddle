@@ -1,7 +1,7 @@
-import { describe, expect, test } from 'vitest'
-import { render } from 'vitest-browser-lit'
+import { assert, beforeEach, describe, expect, ExpectStatic, test } from 'vitest'
+import { render, RenderResult } from 'vitest-browser-lit'
 import { html } from 'lit'
-import { page, userEvent } from '@vitest/browser/context';
+import { Locator, page, userEvent } from '@vitest/browser/context';
 import '../src/index';
 import { GriddleDataGrid } from '../src/index';
 
@@ -20,6 +20,11 @@ const BASE_TEMPLATE = html`
             <gdl-grid-cell>Mary</gdl-grid-cell>
             <gdl-grid-cell>Jane</gdl-grid-cell>
             <gdl-grid-cell>True</gdl-grid-cell>
+        </gdl-grid-row>
+        <gdl-grid-row>
+            <gdl-grid-cell>Joe</gdl-grid-cell>
+            <gdl-grid-cell>Jameson</gdl-grid-cell>
+            <gdl-grid-cell>False</gdl-grid-cell>
         </gdl-grid-row>
     </gdl-data-grid>
     `;
@@ -72,12 +77,38 @@ describe('Keyboard Navigation', () => {
             await expect.element(firstCell, { timeout: 1000 }).toHaveFocus();
         });
     });
+/**
+ * Moves focus to the middle cell and changes the roving tabindex to match the
+ * middle cell. Relies on the template consisting of a 3 x 3 data grid.
+ * @param screen {RenderResult}
+ * @returns {Locator} Returns a Locator for the middle cell of the data grid
+ */
+const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> => {
+    // Tabs to data grid.
+    await userEvent.tab();
+    const firstCell = screen.getByRole('gridcell').first();
+    assert.isTrue(firstCell.element().hasAttribute('tabindex'));
 
+    firstCell.element().setAttribute('tabindex', '-1');
+    // Removed tabindex from all gridcells
+    const middleCell = screen.getByRole('gridcell').getByText('Jane');
+    middleCell.element().setAttribute('tabindex', '0');
+    await userEvent.tab();
+
+    return middleCell;
+};
     describe('Grid Navigation Mode', () => {
+        
         describe('Left Arrow Key', () => {
-            test.todo('Left arrow advances focus to the cell on the left', () => {
-                //
+            
+            test('Left arrow advances focus to the cell on the left', async () => {
+                const {screen} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                await userEvent.keyboard('LeftArrowKey');
+                const leftCell = screen.getByRole('gridcell').getByText('Mary');
+                await expect(leftCell).toHaveFocus();
             });
+            
 
             test.todo('Left Arrow does nothing if no cell precedes it', () => {
                 //
