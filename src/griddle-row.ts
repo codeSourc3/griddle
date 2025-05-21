@@ -4,10 +4,10 @@ import { GriddleCell } from './griddle-cell';
 @customElement('gdl-grid-row')
 export class GriddleRow extends LitElement {
     @queryAssignedElements({ selector: 'gdl-grid-cell' })
-    private accessor cells!: GriddleCell[];
+    accessor cells!: GriddleCell[];
 
 
-    private lastFocusedCell!: GriddleCell | undefined;
+    accessor lastFocusedCell!: GriddleCell | undefined;
     constructor() {
         super();
         this.role = 'row';

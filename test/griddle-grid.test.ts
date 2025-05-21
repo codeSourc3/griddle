@@ -3,7 +3,7 @@ import { render, RenderResult } from 'vitest-browser-lit'
 import { html } from 'lit'
 import { Locator, page, userEvent } from '@vitest/browser/context';
 import '../src/index';
-import { GriddleDataGrid } from '../src/index';
+import { GriddleDataGrid, GriddleRow } from '../src/index';
 
 const BASE_TEMPLATE = html`
     <button data-testid="1">Anchor to focus on</button>
@@ -147,10 +147,14 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
                 await userEvent.tab();
                 await userEvent.keyboard('{ArrowLeft}');
                 const leftCell = screen.getByTestId('left-cell');
+                const middleRow = screen.getByRole('row').nth(1);
+                await expect(middleRow).toContainElement(leftCell.element() as HTMLElement);
+                const middleRowElement = middleRow.element() as GriddleRow;
+                assert.isNotNull(middleRowElement.lastFocusedCell, 'Last Focused Cell is supposed to be the left cell')
                 const outsideWidget = screen.getByTestId('1');
                 await outsideWidget.click();
                 await expect(outsideWidget).toHaveFocus();
-
+                assert.isNotNull(middleRowElement.lastFocusedCell, 'Last Focused cell was supposed to be the left cell')
                 await userEvent.tab();
                 await userEvent.tab();
 
@@ -197,7 +201,7 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
                 const rightCell = screen.getByTestId('right-cell');
                 await userEvent.tab({shift:true});
                 await expect(gridLocator).toHaveFocus();
-
+                
                 await userEvent.tab();
                 await expect(rightCell).toHaveFocus();
             })
