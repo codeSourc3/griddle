@@ -78,7 +78,7 @@ describe('Keyboard Navigation', () => {
         });
     });
 /**
- * Moves focus to the middle cell and changes the roving tabindex to match the
+ * Moves tabindex to the middle cell and changes the roving tabindex to match the
  * middle cell. Relies on the template consisting of a 3 x 3 data grid.
  * @param screen {RenderResult}
  * @returns {Locator} Returns a Locator for the middle cell of the data grid
@@ -87,13 +87,12 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
     // Tabs to data grid.
     await userEvent.tab();
     const firstCell = screen.getByRole('gridcell').first();
-    assert.isTrue(firstCell.element().hasAttribute('tabindex'));
+    assert.isTrue(firstCell.element().hasAttribute('tabindex') && firstCell.element().getAttribute('tabindex') === '0');
 
     firstCell.element().setAttribute('tabindex', '-1');
     // Removed tabindex from all gridcells
     const middleCell = screen.getByRole('gridcell').getByText('Jane');
     middleCell.element().setAttribute('tabindex', '0');
-    await userEvent.tab();
 
     return middleCell;
 };
@@ -104,14 +103,25 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
             test('Left arrow advances focus to the cell on the left', async () => {
                 const {screen} = await preparePageForTabbing();
                 await prepareForNavigationTests(screen);
+                await userEvent.tab();
                 await userEvent.keyboard('LeftArrowKey');
                 const leftCell = screen.getByRole('gridcell').getByText('Mary');
                 await expect(leftCell).toHaveFocus();
             });
 
 
-            test.todo('Left Arrow does nothing if no cell precedes it', () => {
-                //
+            test('Left Arrow does nothing if no cell precedes it', async () => {
+                // sets up the test case
+                const {screen} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                const precedingCell = screen.getByText('Mary');
+                middleCell.element().setAttribute('tabindex', '-1');
+                precedingCell.element().setAttribute('tabindex', '0');
+                await userEvent.tab();
+                // test via user event
+                await userEvent.keyboard('LeftArrowKey');
+                await expect(precedingCell).toHaveFocus();
+                assert.isTrue(precedingCell.element().hasAttribute('tabindex') && precedingCell.element().getAttribute('tabindex') === '0', 'Tabindex leaves the contents of the grid.');
             });
         })
 
