@@ -103,12 +103,12 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
             
             test('Left arrow advances focus to the cell on the left', async () => {
                 const {screen} = await preparePageForTabbing();
-                const middleCell = await prepareForNavigationTests(screen);
+                await prepareForNavigationTests(screen);
                 await userEvent.keyboard('LeftArrowKey');
                 const leftCell = screen.getByRole('gridcell').getByText('Mary');
                 await expect(leftCell).toHaveFocus();
             });
-            
+
 
             test.todo('Left Arrow does nothing if no cell precedes it', () => {
                 //
