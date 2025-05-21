@@ -6,7 +6,13 @@ const config: StorybookConfig = {
   addons: [
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
-    "@storybook/addon-a11y"
+    "@storybook/addon-a11y",
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        docs: 'iframe'
+      }
+    }
   ],
 
   framework: {
@@ -14,6 +20,5 @@ const config: StorybookConfig = {
     options: {},
   },
 
-  docs: {}
 };
 export default config;

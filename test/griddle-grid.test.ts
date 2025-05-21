@@ -227,12 +227,30 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
         });
 
         describe('Up Arrow Key', () => {
-            test.todo('Up Arrow advances focus to the cell above', () => {
-                //
+            test('Up Arrow advances focus to the cell above', async () => {
+                const {screen} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                await userEvent.tab();
+                await expect(middleCell).toHaveFocus();
+                await userEvent.keyboard('{ArrowUp}');
+                const aboveCell = screen.getByTestId('above-cell');
+                await expect(middleCell).not.toHaveFocus();
+                await expect(middleCell).toHaveAttribute('tabindex', '-1');
+                await expect(aboveCell).toHaveFocus();
+                await expect(aboveCell).toHaveAttribute('tabindex', '0');
             });
 
-            test.todo('Up Arrow does nothing if no cell is above it', () => {
-                //
+            test('Up Arrow does nothing if no cell is above it', async () => {
+                const {screen} = await preparePageForTabbing();
+                const middleCell = await prepareForNavigationTests(screen);
+                const aboveCell = screen.getByTestId('right-cell');
+                middleCell.element().setAttribute('tabindex', '-1');
+                aboveCell.element().setAttribute('tabindex', '0');
+                await userEvent.tab();
+
+                await userEvent.keyboard('{ArrowUp}');
+                await expect(aboveCell).toHaveFocus();
+                await expect(aboveCell).toHaveAttribute('tabindex', '0');
             });
         });
 

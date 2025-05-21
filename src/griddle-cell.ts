@@ -19,6 +19,7 @@ export class GriddleCell extends LitElement {
     static styles = css`
         :host {
             display: table-cell;
+            height: fit-content;
         }
     `;
 }

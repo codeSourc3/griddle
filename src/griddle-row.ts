@@ -92,6 +92,8 @@ export class GriddleRow extends LitElement {
     static styles = css`
         :host {
             display: table-row;
+            vertical-align: inherit;
+            unicode-bidi: isolate;
         }
     `;
 }

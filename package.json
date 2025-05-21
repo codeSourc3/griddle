@@ -12,8 +12,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
-    "test:browser": "vitest --workspace=vitest.workspace.ts",
-    "test:browser:ui": "vitest --workspace=vitest.workspace.ts --ui"
+    "test:browser": "vitest --workspace=vitest-headless.workspace.ts",
+    "test:browser:ui": "vitest --workspace=vitest-headful.workspace.ts"
   },
   "dependencies": {
     "lit": "^3.1.4"
