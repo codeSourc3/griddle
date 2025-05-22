@@ -29,7 +29,13 @@ const BASE_TEMPLATE = html`
     </gdl-data-grid>
     `;
 
-
+/**
+ * @description
+ * Renders the page and gets the page ready for the Tab keyboard event.
+ * The Tab keyboard event will cause the user agent to focus on the grid element.
+ * @param template {TemplateResult<1>} The template to use
+ * @returns {Promise<{screen: RenderResult, gridLocator: Locator}>}
+ */
 const preparePageForTabbing = async (template = BASE_TEMPLATE) => {
     const screen = page.render(template);
     const anchor = screen.getByTestId('1');
@@ -78,9 +84,9 @@ describe('Keyboard Navigation', () => {
         });
     });
 /**
- * Moves tabindex to the middle cell and changes the roving tabindex to match the
+ * Moves tabindex to the middle cell. Does not change the currently focused element to be the center cell.
  * middle cell. Relies on the template consisting of a 3 x 3 data grid.
- * @param screen {RenderResult}
+ * @param {RenderResult} screen the screen to use for the setup
  * @returns {Locator} Returns a Locator for the middle cell of the data grid
  */
 const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> => {
@@ -150,11 +156,11 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
                 const middleRow = screen.getByRole('row').nth(1);
                 await expect(middleRow).toContainElement(leftCell.element() as HTMLElement);
                 const middleRowElement = middleRow.element() as GriddleRow;
-                assert.isNotNull(middleRowElement.lastFocusedCell, 'Last Focused Cell is supposed to be the left cell')
+                assert.isNotTrue(middleRowElement.tabIndex === 0, 'Last Focused Cell is supposed to be the left cell')
                 const outsideWidget = screen.getByTestId('1');
                 await outsideWidget.click();
                 await expect(outsideWidget).toHaveFocus();
-                assert.isNotNull(middleRowElement.lastFocusedCell, 'Last Focused cell was supposed to be the left cell')
+                assert.isNotTrue(middleRowElement.tabIndex === 0, 'Last Focused cell was supposed to be the left cell')
                 await userEvent.tab();
                 await userEvent.tab();
 

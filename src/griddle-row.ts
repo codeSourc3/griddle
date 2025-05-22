@@ -3,11 +3,15 @@ import { customElement, queryAssignedElements } from 'lit/decorators.js'
 import { GriddleCell } from './griddle-cell';
 @customElement('gdl-grid-row')
 export class GriddleRow extends LitElement {
+    /**
+     * @description
+     * The grid cells of this row.
+     */
     @queryAssignedElements({ selector: 'gdl-grid-cell' })
     accessor cells!: GriddleCell[];
 
 
-    accessor lastFocusedCell!: GriddleCell | undefined;
+    private accessor lastFocusedCell!: GriddleCell | undefined;
     constructor() {
         super();
         this.role = 'row';
@@ -51,6 +55,12 @@ export class GriddleRow extends LitElement {
         }
     }
 
+    /**
+     * @description
+     * Only handles the Left and Right arrow keys.
+     * 
+     * @param evt The keyboard event to process.
+     */
     private onKeydownHandler(evt: KeyboardEvent) {
         let gridCellEvtSource = evt.composedPath().find(evt => {
             if (evt instanceof GriddleCell) {
