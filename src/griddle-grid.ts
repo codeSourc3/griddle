@@ -1,7 +1,7 @@
 import { LitElement, PropertyValues, css, html } from 'lit'
 import { customElement, queryAssignedElements} from 'lit/decorators.js'
-import { GriddleRow } from './griddle-row';
-import { GriddleCell } from './griddle-cell';
+import { GriddleRow } from './griddle-row.js';
+import { GriddleCell } from './griddle-cell.js';
 
 
 /**

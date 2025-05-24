@@ -1,16 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
+    /*
+    Since bundlers handle bare specifiers and Node.js 
+    doesn't handle bare specifieres we went with Node16.
+
+    Will have to update noEmit and other config options.
+    Not sure about noEmit and if it conflicts with my goal of 
+    producing a web component library.
+     */
+    "target": "ES2022",
     "experimentalDecorators": false,
     "useDefineForClassFields": false,
-    "module": "ES2015",
-    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "module": "Node16",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

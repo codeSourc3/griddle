@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit'
 import { customElement, queryAssignedElements } from 'lit/decorators.js'
-import { GriddleCell } from './griddle-cell';
+import { GriddleCell } from './griddle-cell.js';
 @customElement('gdl-grid-row')
 export class GriddleRow extends LitElement {
     /**
