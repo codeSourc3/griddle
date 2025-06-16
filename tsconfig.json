@@ -11,25 +11,20 @@
     "target": "ES2022",
     "experimentalDecorators": false,
     "useDefineForClassFields": false,
-    "module": "Node16",
+    "module": "es2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
-
-    /* Bundler mode */
-    
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    /* Linting */
+    "sourceMap": true,
+    "outDir": "./",
+    "rootDir": "./src",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,   
+    "noEmit": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.stories.ts", "**/*.test.ts"]

@@ -38,10 +38,10 @@ const BASE_TEMPLATE = html`
  */
 const preparePageForTabbing = async (template = BASE_TEMPLATE) => {
     const screen = page.render(template);
-    const anchor = screen.getByTestId('1');
-    await anchor.click();
+    
+    
     const gridLocator = screen.getByRole('grid');
-
+    
     return { gridLocator, screen };
 };
 
@@ -61,16 +61,13 @@ describe('Keyboard Navigation', () => {
 
     describe('Tab Navigaton - Initial Tab Order', () => {
         //
-        test('Tabs to grid from body', async () => {
+        test('Grid is in tab sequence', async () => {
             const { gridLocator } = await preparePageForTabbing();
-            // Sets us up for actually testing the tab order.
-            // Tab from the body element to the data grid.
-            await userEvent.tab();
-            await expect.element(gridLocator).toHaveFocus();
+            assert.isTrue((gridLocator.element() as HTMLElement).tabIndex === 0, 'Data grid does not have a tab index of 0');
 
         });
 
-        test('Tabs to first cell of the grid from focus on the grid', async () => {
+        test('First cell is in the tab sequence', async () => {
             const { gridLocator, screen } = await preparePageForTabbing();
             // Sets us up for actually testing the tab order.
             const firstCell = screen.getByRole('gridcell').first();

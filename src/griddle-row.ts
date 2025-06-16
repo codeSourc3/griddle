@@ -3,6 +3,8 @@ import { customElement, queryAssignedElements } from 'lit/decorators.js'
 import { GriddleCell } from './griddle-cell.js';
 @customElement('gdl-grid-row')
 export class GriddleRow extends LitElement {
+
+    static shadowRootOptions = {...LitElement.shadowRootOptions, delegatesFocus: true};
     /**
      * @description
      * The grid cells of this row.
@@ -22,12 +24,14 @@ export class GriddleRow extends LitElement {
     }
 
     connectedCallback(): void {
+        super.connectedCallback();
         this.addEventListener('keydown', this.onKeydownHandler);
         this.addEventListener('focusin', this.onFocusIn);
         this.addEventListener('focusout', this.onFocusOut);
     }
 
     disconnectedCallback(): void {
+        super.disconnectedCallback();
         this.removeEventListener('keydown', this.onKeydownHandler);
         this.removeEventListener('focusin', this.onFocusIn);
         this.removeEventListener('focusout', this.onFocusOut);
@@ -62,12 +66,10 @@ export class GriddleRow extends LitElement {
      * @param evt The keyboard event to process.
      */
     private onKeydownHandler(evt: KeyboardEvent) {
-        let gridCellEvtSource = evt.composedPath().find(evt => {
-            if (evt instanceof GriddleCell) {
-                return evt;
-            }
-        }) as HTMLElement;
+        let elementTarget = evt.target as HTMLElement;
+        let gridCellEvtSource = elementTarget.closest('<gdl-grid-cell>');
         if (!gridCellEvtSource) {
+            console.warn('No Griddle cell found in this row');
             throw new Error('No Griddle Cell found in composed path. Please use <gdl-grid-cell>\'s for your grid cells')
         }
         if (evt.key === 'ArrowLeft') {

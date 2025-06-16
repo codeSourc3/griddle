@@ -1,7 +1,7 @@
 import { LitElement, PropertyValues, css, html } from 'lit'
 import { customElement, queryAssignedElements} from 'lit/decorators.js'
-import { GriddleRow } from './griddle-row.js';
-import { GriddleCell } from './griddle-cell.js';
+import { GriddleRow } from './griddle-row';
+import { GriddleCell } from './griddle-cell';
 
 
 /**
@@ -12,6 +12,8 @@ import { GriddleCell } from './griddle-cell.js';
  */
 @customElement('gdl-data-grid')
 export class GriddleDataGrid extends LitElement {
+
+  static shadowRootOptions = {...LitElement.shadowRootOptions, delegatesFocus: true};
 
   @queryAssignedElements({selector: 'gdl-grid-row'})
   accessor rows!: Array<GriddleRow>
