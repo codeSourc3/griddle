@@ -1,6 +1,7 @@
 import { page, userEvent } from "@vitest/browser/context";
 import { html } from "lit";
 import { describe, expect, test } from "vitest";
+
 import '../../src/index';
 import { GriddleDataGrid, GriddleRow } from '../../src/index';
 
