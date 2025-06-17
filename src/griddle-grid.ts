@@ -37,6 +37,22 @@ export class GriddleDataGrid extends LitElement {
     `
   }
 
+  private onKeyDownHandler(evt: KeyboardEvent) {
+    // Handle up and down arrow keys.
+    /*
+    Check that the element that is the target of the KeyboardEvent
+    is of type GriddleDataCell. Stop if it isn't.
+
+    Find the column (the index) of the cell within the row.
+
+    Find the row above the current row or the one below if no row is above.
+    If no rows are above or below stop.
+
+    Otherwise, find the cell at the same index as the currently focused cell.
+    Then focus on it
+     */
+  }
+
   protected firstUpdated(_changedProperties: PropertyValues): void {
     this.resetTabbable();
   }

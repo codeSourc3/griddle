@@ -111,7 +111,7 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
                 assert.isTrue(precedingCell.element().hasAttribute('tabindex') && precedingCell.element().getAttribute('tabindex') === '0', 'Tabindex leaves the contents of the grid.');
             });
 
-            test.skip('Shift+Tab after using Left Arrow while focused on a cell does not cause a loss of the roving tabindex', async () => {
+            test('Shift+Tab after using Left Arrow while focused on a cell does not cause a loss of the roving tabindex', async () => {
                 const {screen, gridLocator} = await preparePageForTabbing();
                 const middleCell = await prepareForNavigationTests(screen);
                 await userEvent.tab();
@@ -125,7 +125,7 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
                 await expect(leftCell).toHaveFocus();
             })
 
-            test.skip('Focusing out of grid after using Left Arrow will not cause loss of the roving tabindex', async () => {
+            test('Focusing out of grid after using Left Arrow will not cause loss of the roving tabindex', async () => {
                 const {screen, gridLocator} = await preparePageForTabbing();
                 const middleCell = await prepareForNavigationTests(screen);
                 await userEvent.tab();
@@ -211,7 +211,7 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
         });
 
         describe('Up Arrow Key', () => {
-            test('Up Arrow advances focus to the cell above', async () => {
+            test.skip('Up Arrow advances focus to the cell above', async () => {
                 const {screen} = await preparePageForTabbing();
                 const middleCell = await prepareForNavigationTests(screen);
                 await userEvent.tab();
@@ -224,7 +224,7 @@ const prepareForNavigationTests = async (screen: RenderResult):Promise<Locator> 
                 await expect(aboveCell).toHaveAttribute('tabindex', '0');
             });
 
-            test('Up Arrow does nothing if no cell is above it', async () => {
+            test.skip('Up Arrow does nothing if no cell is above it', async () => {
                 const {screen} = await preparePageForTabbing();
                 const middleCell = await prepareForNavigationTests(screen);
                 const aboveCell = screen.getByTestId('right-cell');

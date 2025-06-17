@@ -23,5 +23,10 @@ export class GriddleCell extends LitElement {
             display: table-cell;
             height: fit-content;
         }
+
+        :host(:focus) {
+            outline-color: blue;
+            background-color: #fff;
+        }
     `;
 }

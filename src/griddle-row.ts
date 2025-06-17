@@ -40,6 +40,9 @@ export class GriddleRow extends LitElement {
     private onFocusIn(focusEvt: FocusEvent) {
         const gridCellFocusedOn = focusEvt.composedPath().find(evt => evt instanceof GriddleCell);
         if (gridCellFocusedOn !== undefined) {
+            if (this.lastFocusedCell !== undefined) {
+                this.lastFocusedCell.tabIndex = -1;
+            }
             this.lastFocusedCell = gridCellFocusedOn;
             this.lastFocusedCell.tabIndex = 0;
         }
