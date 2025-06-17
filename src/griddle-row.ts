@@ -17,7 +17,7 @@ export class GriddleRow extends LitElement {
     constructor() {
         super();
         this.role = 'row';
-        this.tabIndex = -1;
+        //this.tabIndex = -1;
         this.onKeydownHandler = this.onKeydownHandler.bind(this);
         this.onFocusIn = this.onFocusIn.bind(this);
         this.onFocusOut = this.onFocusOut.bind(this);
@@ -67,7 +67,7 @@ export class GriddleRow extends LitElement {
      */
     private onKeydownHandler(evt: KeyboardEvent) {
         let elementTarget = evt.target as HTMLElement;
-        let gridCellEvtSource = elementTarget.closest('<gdl-grid-cell>');
+        let gridCellEvtSource = elementTarget.closest('gdl-grid-cell');
         if (!gridCellEvtSource) {
             console.warn('No Griddle cell found in this row');
             throw new Error('No Griddle Cell found in composed path. Please use <gdl-grid-cell>\'s for your grid cells')

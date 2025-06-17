@@ -13,7 +13,7 @@ import { GriddleCell } from './griddle-cell';
 @customElement('gdl-data-grid')
 export class GriddleDataGrid extends LitElement {
 
-  static shadowRootOptions = {...LitElement.shadowRootOptions, delegatesFocus: true};
+  
 
   @queryAssignedElements({selector: 'gdl-grid-row'})
   accessor rows!: Array<GriddleRow>
@@ -58,7 +58,6 @@ export class GriddleDataGrid extends LitElement {
 
     #mainbody {
       display: table-row-group;
-      position: relative;
     }
 
     #tablehead {

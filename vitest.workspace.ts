@@ -6,9 +6,12 @@ export default defineWorkspace([
   {
     extends: './vite.config.ts',
     test: {
+      include: ['test/unit/**/*.{test,spec}.ts',
+        'test/**/*.unit.{test,spec}.ts'
+      ],
       includeTaskLocation: true,
-      name:'integration:ui',
-      setupFiles: ['./setup-file.ts'],
+      name:'unit',
+      setupFiles: ['./setup-file.ts', './vitest-unit-setup.ts'],
       browser: {
         enabled: true,
         provider: 'playwright',
@@ -21,9 +24,12 @@ export default defineWorkspace([
   },{
     extends: './vite.config.ts',
     test: {
+      include: ['test/integration/**/*.{test,spec}.ts',
+        'test/**/*.integration.{test,spec}.ts'
+      ],
       includeTaskLocation: true,
       name:'integration',
-      setupFiles: ['./setup-file.ts'],
+      setupFiles: ['./setup-file.ts', './vitest-integration-setup.ts'],
       browser: {
         enabled: true,
         provider: 'playwright',
@@ -31,7 +37,7 @@ export default defineWorkspace([
         instances: [
           {browser: 'chromium'}
         ],
-        headless: true
+        headless: false
       },
     },
   }
